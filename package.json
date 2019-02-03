@@ -62,6 +62,10 @@
         "request-promise": "^4.2.2",
         "event-stream": "3.3.4"
     },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/kusumandaru/rails-touchbar.git"
+    },
     "keywords": [
       "Reminder",
       "Adzan",
