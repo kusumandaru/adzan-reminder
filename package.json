@@ -4,6 +4,10 @@
     "description": "reminder adzan notification",
     "version": "1.0.0",
     "publisher": "kusumandaru",
+    "author": {
+      "name": "Angga Kusumandaru",
+      "email": "angga.kusumandaru@gmail.com"
+    },
     "engines": {
         "vscode": "^1.30.0"
     },
@@ -16,20 +20,20 @@
     "main": "./out/extension",
     "contributes": {
         "configuration": {
-          "type": "object",
-          "title": "Adzan schedule configuration",
-          "properties": {
-            "adzan-reminder.city": {
-              "type": "string",
-              "default": "Jakarta",
-              "description": "selected city"
-            },
-            "adzan-reminder.country": {
-              "type": "string",
-              "default": "Indonesia",
-              "description": "selected country"
+            "type": "object",
+            "title": "Adzan schedule configuration",
+            "properties": {
+                "adzan-reminder.city": {
+                    "type": "string",
+                    "default": "Jakarta",
+                    "description": "selected city"
+                },
+                "adzan-reminder.country": {
+                    "type": "string",
+                    "default": "Indonesia",
+                    "description": "selected country"
+                }
             }
-          }
         },
         "commands": [
             {
@@ -55,6 +59,13 @@
     "dependencies": {
         "moment": "^2.24.0",
         "request": "^2.88.0",
-        "request-promise": "^4.2.2"
-    }
+        "request-promise": "^4.2.2",
+        "event-stream": "3.3.4"
+    },
+    "keywords": [
+      "Reminder",
+      "Adzan",
+      "Pray time",
+      "Schedule"
+  ]
 }

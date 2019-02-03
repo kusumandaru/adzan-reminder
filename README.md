@@ -1,6 +1,11 @@
 # adzan-reminder README
 
+<img src="https://ci.appveyor.com/api/projects/status/github/kusumandaru/adzan-reminder?branch=master&svg=true">
+
 Adzan reminder extension for visual studio code
+
+![Tutorial](https://github.com/kusumandaru/adzan-reminder/blob/master/assets/adzan-reminder.gif)
+
 
 ## Features
 
