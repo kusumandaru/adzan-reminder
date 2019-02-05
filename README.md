@@ -28,6 +28,10 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 Initial release of extension
 
+### 1.0.1
+
+Add keybinding shortcut and show whole schedule for today
+
 
 -----------------------------------------------------------------------------------------------------------
 

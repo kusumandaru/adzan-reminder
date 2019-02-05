@@ -14,13 +14,19 @@ export function activate(context: vscode.ExtensionContext) {
     var month = null;
     var jsonPath = "";
     var uriApi = "";
+    let JSON_SPACE = 4;
 
-    let disposable = vscode.commands.registerCommand('adzan.today', () => {
+    let adzanSimple = vscode.commands.registerCommand('adzan.simple', () => {
         loadData();
-        fs.readFile(jsonPath, handleJSONFile);    
+        fs.readFile(jsonPath, handleJSONFileSimple);    
     });
 
-    context.subscriptions.push(disposable);
+    let adzanComplete = vscode.commands.registerCommand('adzan.today', () => {
+        loadData();
+        fs.readFile(jsonPath, handleJSONFileComplete);    
+    });
+
+    context.subscriptions.push(adzanSimple, adzanComplete);
 
     var loadData = function() {
       config = getConfig();
@@ -30,19 +36,29 @@ export function activate(context: vscode.ExtensionContext) {
       uriApi = "http://api.aladhan.com/v1/calendarByCity?city="+ config.city +"&country="+ config.country +"&method=2&month="+month+"&year="+today.year();
     };
 
-    var handleJSONFile = function (err: any, data: any) {
+    var handleJSONFileSimple = function (err: any, data: any) {
         if (err) {
           console.log(err.message);
           if (err.message.includes('no such file or directory')) {
             loadApiData();
           }  
         } else {
-          readScheduleToday(data);
+          readScheduleNow(data);
         }     
     };
 
-    var readScheduleToday = function(data: any) {
-      console.log('result read: ' + data === null);
+    var handleJSONFileComplete = function (err: any, data: any) {
+        if (err) {
+          console.log(err.message);
+          if (err.message.includes('no such file or directory')) {
+            loadApiData();
+          }  
+        } else {
+          readScheduleComplete(data);
+        }     
+    };
+
+    var readScheduleNow = function(data: any) {
       jsonObject = JSON.parse(data);
 
       if (jsonObject === null) {
@@ -68,6 +84,47 @@ export function activate(context: vscode.ExtensionContext) {
       }
     };
 
+    var readScheduleComplete = async function(data: any) {
+      jsonObject = JSON.parse(data);
+
+      if (jsonObject === null) {
+        loadApiData();
+      } else
+      {
+        let prayObject = prayTimeToday(jsonObject);
+
+        let prayToday = prayObject[0];
+        let message = "("+ prayToday.date.readable +") schedule in " + config.city +"/"+ config.country;
+
+        let prettySchedule = JSON.stringify(Object.assign({Today: message}, prayToday.timings), null, JSON_SPACE);
+
+        setTextDocument(prettySchedule, null);
+      }
+    };
+
+    var setTextDocument = function setContent( content: string, options: { language: any; } | null ) {
+      options = options || {
+          language: 'text'
+      };
+  
+      return vscode.workspace.openTextDocument( {
+              language: options.language
+          } )
+          .then( doc => vscode.window.showTextDocument( doc ) )
+          .then( editor => {
+              let editBuilder = (textEdit: { insert: (arg0: vscode.Position, arg1: string) => void; }) => {
+                  textEdit.insert( new vscode.Position( 0, 0 ), String( content ) );
+              };
+  
+              return editor.edit( editBuilder, {
+                      undoStopBefore: true,
+                      undoStopAfter: false
+                  } )
+                  .then( () => editor );
+          } );
+  };
+  
+
     var takeTimingAfterNow = function(prayTimings: any) {
       let timingArray = Object.entries(prayTimings);
 
@@ -88,9 +145,7 @@ export function activate(context: vscode.ExtensionContext) {
       sort(function (a: any, b: any) {
         return moment(a[1], "HH:mm").isBefore(moment(b[1], "HH:mm")) ? 1 : 0;
       });
-    };
-
-    
+    };  
 
     var prayTimeToday = function(dataArray: any) {
       return dataArray.filter(function(item: any) { 
@@ -112,7 +167,7 @@ export function activate(context: vscode.ExtensionContext) {
             if(err) {
                 return console.log(err.message);
             } else {
-              readScheduleToday(jsonResponse);
+              readScheduleNow(jsonResponse);
             }
             
         }); 
@@ -124,7 +179,6 @@ export function activate(context: vscode.ExtensionContext) {
       });
     };
     
-
     
 }
 

@@ -2,7 +2,7 @@
     "name": "adzan-reminder",
     "displayName": "adzan-reminder",
     "description": "reminder adzan notification",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "kusumandaru",
     "author": {
       "name": "Angga Kusumandaru",
@@ -37,8 +37,24 @@
         },
         "commands": [
             {
+                "command": "adzan.simple",
+                "title": "Adzan schedule for recent"
+            },
+            {
                 "command": "adzan.today",
                 "title": "Adzan schedule for today"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "adzan.simple",
+                "key": "ctrl+shift+a",
+                "mac": "cmd+shift+a"
+            },
+            {
+                "command": "adzan.today",
+                "key": "ctrl+shift+1",
+                "mac": "cmd+shift+1"
             }
         ]
     },
@@ -64,7 +80,7 @@
     },
     "repository": {
       "type": "git",
-      "url": "https://github.com/kusumandaru/rails-touchbar.git"
+      "url": "https://github.com/kusumandaru/adzan-reminder.git"
     },
     "keywords": [
       "Reminder",
