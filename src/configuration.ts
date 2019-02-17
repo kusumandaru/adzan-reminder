@@ -3,6 +3,7 @@ import * as vs from 'vscode';
 export interface AdzanConfig {
   city: string;
   country: string;
+  showPraytime: boolean;
 }
 
 /**
@@ -14,6 +15,7 @@ export const getConfig: () => AdzanConfig = () => {
 
   return {
     city: conf.get('city', 'Jakarta'),
-    country: conf.get('country', 'Indonesia')
+    country: conf.get('country', 'Indonesia'),
+    showPraytime: conf.get('showPraytime', true)
   };
 };

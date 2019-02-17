@@ -16,6 +16,13 @@ export function activate(context: vscode.ExtensionContext) {
     var uriApi = "";
     let JSON_SPACE = 4;
 
+    vscode.commands.executeCommand('adzan.runSchedule');
+
+    let runSchedule = vscode.commands.registerCommand('adzan.runSchedule', () => {
+      runningEveryHour();
+      setInterval(runningEveryHour, 1000 * 60 * 60);
+    });
+
     let adzanSimple = vscode.commands.registerCommand('adzan.simple', () => {
         loadData();
         fs.readFile(jsonPath, handleJSONFileSimple);    
@@ -26,7 +33,12 @@ export function activate(context: vscode.ExtensionContext) {
         fs.readFile(jsonPath, handleJSONFileComplete);    
     });
 
-    context.subscriptions.push(adzanSimple, adzanComplete);
+    context.subscriptions.push(runSchedule, adzanSimple, adzanComplete);
+
+    var runningEveryHour = function() {
+      loadData();
+      fs.readFile(jsonPath, handleJSONFileSchedule);
+    };
 
     var loadData = function() {
       config = getConfig();
@@ -56,6 +68,17 @@ export function activate(context: vscode.ExtensionContext) {
         } else {
           readScheduleComplete(data);
         }     
+    };
+
+    var handleJSONFileSchedule = function (err: any, data: any) {
+      if (err) {
+        console.log(err.message);
+        if (err.message.includes('no such file or directory')) {
+          loadApiData();
+        }  
+      } else {
+        setScheduleToday(data);
+      } 
     };
 
     var readScheduleNow = function(data: any) {
@@ -102,6 +125,45 @@ export function activate(context: vscode.ExtensionContext) {
       }
     };
 
+    var setScheduleToday = async function(data: any) {
+      jsonObject = JSON.parse(data);
+
+      if (jsonObject === null) {
+        loadApiData();
+      } else
+      {
+        let prayObject = prayTimeToday(jsonObject);
+
+        let prayToday = prayObject[0];
+        let timingArray = Object.entries( prayToday.timings);
+        var prayTime = ['Fajr', 'Dhuhr', 'Asr', "Maghrib", "Isha"];
+        timingArray.forEach(function(timing) {
+          const time_clock_start = moment(timing[1], "HH:mm");         
+          const timePeriod = time_clock_start.diff(moment());
+
+          if (timePeriod <  0) {
+            return;
+          }
+
+          if (!prayTime.includes(timing[0])) {
+            return;
+          }
+
+          if (!config.showPraytime) {
+            return;
+          }
+
+          var timer = setInterval(function () {
+            vscode.window.showInformationMessage(
+                `🕌🚶 ${timing[0]} : ${timing[1]} now! 🕌🚶`)
+                .then(() => {
+                    clearTimeout(timer);
+                });
+          }, timePeriod);
+        });
+      }
+    };
+
     var setTextDocument = function setContent( content: string, options: { language: any; } | null ) {
       options = options || {
           language: 'text'
@@ -122,8 +184,7 @@ export function activate(context: vscode.ExtensionContext) {
                   } )
                   .then( () => editor );
           } );
-  };
-  
+    };
 
     var takeTimingAfterNow = function(prayTimings: any) {
       let timingArray = Object.entries(prayTimings);
@@ -178,8 +239,6 @@ export function activate(context: vscode.ExtensionContext) {
           console.log(err.message);
       });
     };
-    
-    
 }
 
 export function deactivate() {

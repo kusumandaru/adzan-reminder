@@ -10,13 +10,15 @@ Adzan reminder extension for visual studio code
 ## Features
 
 Show schedule of previous time prayer and next one.
-Call cmd+shift+p / ctrl+shift+p -> Adzan schedule today
+Call cmd+shift+a / ctrl+shift+a -> Adzan schedule today
+Call cmd+shift+1 / ctrl+shift+1 -> Nearest pray time
 
 
 ## Extension Settings
 
 * `adzan-reminder.city`: set to city
 * `adzan-reminder.country`: set to country
+* `adzan-reminder.showPraytime`: enable or disable notification praytime
 
 ## Known Issues
 
@@ -31,6 +33,10 @@ Initial release of extension
 ### 1.0.1
 
 Add keybinding shortcut and show whole schedule for today
+
+### 1.0.2
+
+Add timer for adzan for each running
 
 
 -----------------------------------------------------------------------------------------------------------

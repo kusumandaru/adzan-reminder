@@ -2,11 +2,11 @@
     "name": "adzan-reminder",
     "displayName": "adzan-reminder",
     "description": "reminder adzan notification",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "publisher": "kusumandaru",
     "author": {
-      "name": "Angga Kusumandaru",
-      "email": "angga.kusumandaru@gmail.com"
+        "name": "Angga Kusumandaru",
+        "email": "angga.kusumandaru@gmail.com"
     },
     "engines": {
         "vscode": "^1.30.0"
@@ -17,6 +17,7 @@
     "activationEvents": [
         "*"
     ],
+    "icon": "assets/mosque.png",
     "main": "./out/extension",
     "contributes": {
         "configuration": {
@@ -32,6 +33,11 @@
                     "type": "string",
                     "default": "Indonesia",
                     "description": "selected country"
+                },
+                "adzan-reminder.showPraytime": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "show adzan when comes"
                 }
             }
         },
@@ -66,26 +72,27 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.21",
-        "tslint": "^5.8.0",
+        "@types/mocha": "^2.2.42",
         "@types/node": "^8.10.25",
-        "@types/mocha": "^2.2.42"
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.21"
     },
     "dependencies": {
+        "event-stream": "3.3.4",
         "moment": "^2.24.0",
         "request": "^2.88.0",
         "request-promise": "^4.2.2",
-        "event-stream": "3.3.4"
+        "node.extend": ">=1.1.7"
     },
     "repository": {
-      "type": "git",
-      "url": "https://github.com/kusumandaru/adzan-reminder.git"
+        "type": "git",
+        "url": "https://github.com/kusumandaru/adzan-reminder.git"
     },
     "keywords": [
-      "Reminder",
-      "Adzan",
-      "Pray time",
-      "Schedule"
-  ]
+        "Reminder",
+        "Adzan",
+        "Pray time",
+        "Schedule"
+    ]
 }
