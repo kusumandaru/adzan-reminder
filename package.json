@@ -2,7 +2,7 @@
     "name": "adzan-reminder",
     "displayName": "adzan-reminder",
     "description": "reminder adzan notification",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "publisher": "kusumandaru",
     "author": {
         "name": "Angga Kusumandaru",
@@ -79,11 +79,13 @@
         "vscode": "^1.1.21"
     },
     "dependencies": {
+        "codic": "^2.0.6",
         "event-stream": "3.3.4",
         "moment": "^2.24.0",
+        "node.extend": ">=1.1.7",
         "request": "^2.88.0",
         "request-promise": "^4.2.2",
-        "node.extend": ">=1.1.7"
+        "tar": "^4.4.2"
     },
     "repository": {
         "type": "git",

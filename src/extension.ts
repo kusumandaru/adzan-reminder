@@ -3,6 +3,7 @@
 import * as moment from 'moment';
 import * as vscode from 'vscode';
 import { getConfig } from './configuration';
+import Codic from 'codic';
 let rp = require('request-promise');
 let fs = require("fs");
 
@@ -15,6 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
     var jsonPath = "";
     var uriApi = "";
     let JSON_SPACE = 4;
+    var codic = new Codic();
 
     vscode.commands.executeCommand('adzan.runSchedule');
 
@@ -25,7 +27,8 @@ export function activate(context: vscode.ExtensionContext) {
 
     let adzanSimple = vscode.commands.registerCommand('adzan.simple', () => {
         loadData();
-        fs.readFile(jsonPath, handleJSONFileSimple);    
+        fs.readFile(jsonPath, handleJSONFileSimple);   
+        fs.readFile(jsonPath, handleJSONFileSchedule); 
     });
 
     let adzanComplete = vscode.commands.registerCommand('adzan.today', () => {
@@ -91,7 +94,6 @@ export function activate(context: vscode.ExtensionContext) {
         let prayObject = prayTimeToday(jsonObject);
 
         let prayToday = prayObject[0];
-        //let prettySchedule = JSON.stringify(prayToday.timings, null, JSON_SPACE);
 
         let afterNow = takeTimingAfterNow(prayToday.timings);
         if (afterNow.length > 0) {
@@ -137,13 +139,8 @@ export function activate(context: vscode.ExtensionContext) {
         let prayToday = prayObject[0];
         let timingArray = Object.entries( prayToday.timings);
         var prayTime = ['Fajr', 'Dhuhr', 'Asr', "Maghrib", "Isha"];
-        timingArray.forEach(function(timing) {
-          const time_clock_start = moment(timing[1], "HH:mm");         
-          const timePeriod = time_clock_start.diff(moment());
-
-          if (timePeriod <  0) {
-            return;
-          }
+        timingArray.forEach(async function(timing) {
+          const adzanTime = moment.utc(timing[1], "HH:mm");
 
           if (!prayTime.includes(timing[0])) {
             return;
@@ -153,14 +150,28 @@ export function activate(context: vscode.ExtensionContext) {
             return;
           }
 
-          var timer = setInterval(function () {
-            vscode.window.showInformationMessage(
-                `🕌🚶 ${timing[0]} : ${timing[1]} now! 🕌🚶`)
-                .then(() => {
-                    clearTimeout(timer);
-                });
-          }, timePeriod);
+          // register task on Codic
+          await codic.assign('send reminders',setScheduleMessage);
+          // pass isoString or human-interval or milliseconds to the at method
+          await codic.run("send reminders")
+                     .use({timing:timing})
+                     .at(adzanTime.toISOString()) 
+                     .setName("adzanReminderActivity"+timing[0])
+                     .save();
+
+          await codic.start();
         });
+      }
+    };
+
+    const setScheduleMessage = (activity: { attrs: { data: { timing: any; }; }; }) => {
+      let timing = activity.attrs.data.timing;
+      let adzanTime = moment(timing[1], "HH:mm");
+      let nowday = moment.utc();
+      
+      if (adzanTime.isBetween(nowday.clone().subtract(5, 'minutes'), nowday.clone().add(5, 'minutes'))) {
+        vscode.window.showInformationMessage(
+          `🕌🚶 ${timing[0]} : ${adzanTime.format('LT')} now! 🕌🚶`);
       }
     };
 
@@ -239,6 +250,8 @@ export function activate(context: vscode.ExtensionContext) {
           console.log(err.message);
       });
     };
+
+
 }
 
 export function deactivate() {
