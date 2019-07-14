@@ -139,7 +139,7 @@ export function activate(context: vscode.ExtensionContext) {
         let prayToday = prayObject[0];
         let timingArray = Object.entries( prayToday.timings);
         var prayTime = ['Fajr', 'Dhuhr', 'Asr', "Maghrib", "Isha"];
-        timingArray.forEach(async function(timing) {
+        timingArray.forEach(async function(timing: any) {
           const adzanTime = moment.utc(timing[1], "HH:mm");
 
           if (!prayTime.includes(timing[0])) {

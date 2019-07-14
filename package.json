@@ -2,7 +2,7 @@
     "name": "adzan-reminder",
     "displayName": "adzan-reminder",
     "description": "reminder adzan notification",
-    "version": "1.0.3",
+    "version": "1.0.31",
     "publisher": "kusumandaru",
     "author": {
         "name": "Angga Kusumandaru",
@@ -81,6 +81,7 @@
     "dependencies": {
         "codic": "^2.0.6",
         "event-stream": "3.3.4",
+        "lodash": "4.17.13",
         "moment": "^2.24.0",
         "node.extend": ">=1.1.7",
         "request": "^2.88.0",

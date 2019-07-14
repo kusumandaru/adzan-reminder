@@ -38,6 +38,14 @@ Add keybinding shortcut and show whole schedule for today
 
 Add timer for adzan for each running
 
+### 1.0.3
+
+Change timer into scheduler
+
+### 1.0.31
+
+Security update
+
 
 -----------------------------------------------------------------------------------------------------------
 
