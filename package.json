@@ -83,13 +83,14 @@
         "codic": "^2.0.6",
         "event-stream": "3.3.4",
         "fstream": "^1.0.12",
-        "https-proxy-agent": "^2.2.3",
+        "https-proxy-agent": "^2.2.4",
         "lodash": "4.17.19",
         "moment": "^2.24.0",
         "node.extend": ">=1.1.7",
         "request": "^2.88.0",
         "request-promise": "^4.2.2",
-        "tar": "^4.4.2"
+        "tar": "^4.4.2",
+        "vscode-test": "^1.4.1"
     },
     "repository": {
         "type": "git",

@@ -405,7 +405,7 @@
   "resolved" "https://registry.npmjs.org/he/-/he-1.1.1.tgz"
   "version" "1.1.1"
 
-"http-proxy-agent@2.1.0":
+"http-proxy-agent@^2.1.0":
   "integrity" "sha512-qwHbBLV7WviBl0rQsOzH6o5lwyOIvwp/BdFnvVxXORldu5TmjFfjzBcWUWS5kWAZhmv+JtiDhSuQCp4sBfbIgg=="
   "resolved" "https://registry.npmjs.org/http-proxy-agent/-/http-proxy-agent-2.1.0.tgz"
   "version" "2.1.0"
@@ -422,18 +422,10 @@
     "jsprim" "1.4.1"
     "sshpk" "1.16.1"
 
-"https-proxy-agent@^2.2.3":
-  "integrity" "sha512-Ytgnz23gm2DVftnzqRRz2dOXZbGd2uiajSw/95bPp6v53zPRspQjLm/AfBgqbJ2qfeRXWIOMVLpp86+/5yX39Q=="
-  "resolved" "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-2.2.3.tgz"
-  "version" "2.2.3"
-  dependencies:
-    "agent-base" "^4.3.0"
-    "debug" "^3.1.0"
-
-"https-proxy-agent@2.2.2":
-  "integrity" "sha512-c8Ndjc9Bkpfx/vCJueCPy0jlP4ccCCSNDp8xwCZzPjKJUm+B+u9WX2x98Qx4n1PiMNTWo3D7KK5ifNV/yJyRzg=="
-  "resolved" "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-2.2.2.tgz"
-  "version" "2.2.2"
+"https-proxy-agent@^2.2.1", "https-proxy-agent@^2.2.4":
+  "integrity" "sha512-OmvfoQ53WLjtA9HeYP9RNrWMJzzAz1JGaSFr1nijg0PVR1JaD/xbJq1mdEIIlxGpXp9eSe/O2LgU9DJmTPd0Eg=="
+  "resolved" "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-2.2.4.tgz"
+  "version" "2.2.4"
   dependencies:
     "agent-base" "^4.3.0"
     "debug" "^3.1.0"
@@ -724,7 +716,7 @@
   dependencies:
     "path-parse" "1.0.6"
 
-"rimraf@2.7.1":
+"rimraf@^2.6.3", "rimraf@2.7.1":
   "integrity" "sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w=="
   "resolved" "https://registry.npmjs.org/rimraf/-/rimraf-2.7.1.tgz"
   "version" "2.7.1"
@@ -915,13 +907,22 @@
     "core-util-is" "1.0.2"
     "extsprintf" "1.3.0"
 
+"vscode-test@^1.4.1":
+  "integrity" "sha512-Ls7+JyC06cUCuomlTYk4aNJI00Rri09hgtkNl3zfQ1bj6meXglpSPpuzJ/RPNetlUHFMm4eGs0Xr/H5pFPVwfQ=="
+  "resolved" "https://registry.npmjs.org/vscode-test/-/vscode-test-1.4.1.tgz"
+  "version" "1.4.1"
+  dependencies:
+    "http-proxy-agent" "^2.1.0"
+    "https-proxy-agent" "^2.2.4"
+    "rimraf" "^2.6.3"
+
 "vscode-test@0.4.3":
   "integrity" "sha512-EkMGqBSefZH2MgW65nY05rdRSko15uvzq4VAPM5jVmwYuFQKE7eikKXNJDRxL+OITXHB6pI+a3XqqD32Y3KC5w=="
   "resolved" "https://registry.npmjs.org/vscode-test/-/vscode-test-0.4.3.tgz"
   "version" "0.4.3"
   dependencies:
-    "http-proxy-agent" "2.1.0"
-    "https-proxy-agent" "2.2.2"
+    "http-proxy-agent" "^2.1.0"
+    "https-proxy-agent" "^2.2.1"
 
 "vscode@^1.1.21":
   "integrity" "sha512-cGFh9jmGLcTapCpPCKvn8aG/j9zVQ+0x5hzYJq5h5YyUXVGa1iamOaB2M2PZXoumQPES4qeAP1FwkI0b6tL4bQ=="
