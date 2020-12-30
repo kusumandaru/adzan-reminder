@@ -15,7 +15,7 @@ Adzan reminder extension for visual studio code
 
 ## Builds
 - npm install
-- npm run compile
+- npm run webpack
 - node ./node_modules/vscode/bin/test
 
 ## Extension Settings
