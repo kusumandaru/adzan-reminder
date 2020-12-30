@@ -13,6 +13,10 @@ Adzan reminder extension for visual studio code
 - Call cmd+shift+a / ctrl+shift+a -> Adzan schedule today
 - Call cmd+shift+1 / ctrl+shift+1 -> Nearest pray time
 
+## Builds
+- npm install
+- npm run compile
+- node ./node_modules/vscode/bin/test
 
 ## Extension Settings
 
