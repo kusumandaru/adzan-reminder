@@ -82,7 +82,7 @@
     "dependencies": {
         "codic": "^2.0.6",
         "event-stream": "3.3.4",
-        "lodash": "4.17.13",
+        "lodash": "4.17.19",
         "moment": "^2.24.0",
         "node.extend": ">=1.1.7",
         "request": "^2.88.0",
