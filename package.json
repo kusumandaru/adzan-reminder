@@ -95,7 +95,7 @@
         "node.extend": ">=1.1.7",
         "request": "^2.88.0",
         "request-promise": "^4.2.2",
-        "tar": "^4.4.2",
+        "tar": "^4.4.15",
         "vscode-test": "^1.4.1"
     },
     "repository": {
